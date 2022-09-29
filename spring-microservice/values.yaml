@@ -1,0 +1,131 @@
+# Default values for spring-microservice.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+replicaCount: 1
+
+image:
+  repository: nginx
+  pullPolicy: IfNotPresent
+  # Overrides the image tag whose default is the chart appVersion.
+  tag: ""
+
+imageCredentials:
+  registry: quay.io
+  username: someone
+  password: sillyness
+
+#imagePullSecrets:[]
+imagePullSecrets:
+  - name: docker-registry
+nameOverride: ""
+fullnameOverride: ""
+
+serviceAccount:
+  # Specifies whether a service account should be created
+  create: true
+  # Annotations to add to the service account
+  annotations: {}
+  # The name of the service account to use.
+  # If not set and create is true, a name is generated using the fullname template
+  name: ""
+
+podAnnotations: {}
+
+podSecurityContext: {}
+  # fsGroup: 2000
+
+securityContext: {}
+  # capabilities:
+  #   drop:
+  #   - ALL
+  # readOnlyRootFilesystem: true
+  # runAsNonRoot: true
+  # runAsUser: 1000
+
+service:
+  type: ClusterIP
+  port: 80
+
+ingress:
+  enabled: false
+  className: ""
+  annotations: {}
+    # kubernetes.io/ingress.class: nginx
+    # kubernetes.io/tls-acme: "true"
+  hosts:
+    - host: chart-example.local
+      paths:
+        - path: /
+          pathType: ImplementationSpecific
+  tls: []
+  #  - secretName: chart-example-tls
+  #    hosts:
+  #      - chart-example.local
+
+resources: {}
+  # We usually recommend not to specify default resources and to leave this as a conscious
+  # choice for the user. This also increases chances charts run on environments with little
+  # resources, such as Minikube. If you do want to specify resources, uncomment the following
+  # lines, adjust them as necessary, and remove the curly braces after 'resources:'.
+  # limits:
+  #   cpu: 100m
+  #   memory: 128Mi
+  # requests:
+  #   cpu: 100m
+  #   memory: 128Mi
+
+autoscaling:
+  enabled: false
+  minReplicas: 1
+  maxReplicas: 100
+  targetCPUUtilizationPercentage: 80
+  # targetMemoryUtilizationPercentage: 80
+
+nodeSelector: {}
+
+tolerations: []
+
+affinity: {}
+
+
+
+#启动探针
+startupProbe:
+  failureThreshold: 10
+  initialDelaySeconds: 20
+  periodSeconds: 10
+  successThreshold: 1
+  timeoutSeconds: 3
+  tcpSocket:
+    port: 7001
+
+
+# 存活探针
+livenessProbe:
+  failureThreshold: 3
+  #initialDelaySeconds: 30
+  periodSeconds: 2
+  successThreshold: 1
+  timeoutSeconds: 1
+  tcpSocket:
+    port: 7001
+
+#就绪探针
+readinessProbe:
+  failureThreshold: 3 # 探测成功后，最少连续探测失败多少次才被认定为失败。默认是 3。最小值是 1。
+  #initialDelaySeconds: 30 #容器启动后第一次执行探测是需要等待多少秒，默认0s
+  periodSeconds: 2  #执行探测的频率。默认是10秒，最小1秒。
+  successThreshold: 1 #探测失败后，最少连续探测成功多少次才被认定为成功。默认是 1。对于 liveness 必须是 1。最小值是 1
+  timeoutSeconds: 1 #探测超时时间。默认1秒，最小1秒
+  httpGet:
+    path: /health/check
+    port: 7001
+    scheme: HTTP
+
+# 升级策略
+strategy:
+  rollingUpdate:
+    maxSurge: 25% #滚动升级中，容器副本的最大数量
+    maxUnavailable: 25% #滚动升级中，容器副本停止的最大数量
+  type: RollingUpdate  #升级策略
