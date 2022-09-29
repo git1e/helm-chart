@@ -11,7 +11,7 @@ helm package demo-chart
 
 ## 添加描述文件 index.yaml
 ```
-helm repo index --url https://try-001.github.io/helm-chart/ .
+helm repo index --url https://git1e.github.io/helm-chart/ .
 ```
 ## 升级chart
 ```
@@ -22,13 +22,13 @@ vim Chart.yaml
 # 打包chart
 helm package demo-chart-0.1.1/
 # 添加描述文件 index.yaml
-helm repo index --url https://try-001.github.io/helm-chart/ .
+helm repo index --url https://git1e.github.io/helm-chart/ .
 ```
 ## 提交并推送git仓
 
 ## 添加repo
 ```
-helm repo add myrepo https://try-001.github.io/helm-chart
+helm repo add myrepo https://git1e.github.io/helm-chart/
 ```
 ## 查找
 ```
