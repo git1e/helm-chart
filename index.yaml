@@ -3,7 +3,7 @@ entries:
   demo-chart:
   - apiVersion: v2
     appVersion: 1.16.0
-    created: "2022-11-09T14:59:40.38144+08:00"
+    created: "2022-11-09T18:42:18.980074+08:00"
     description: A Helm chart for Kubernetes
     digest: 32649560449cae92d12153c011d0549663b78770c1814bbf537435f5ba88aca7
     name: demo-chart
@@ -13,7 +13,7 @@ entries:
     version: 0.1.1
   - apiVersion: v2
     appVersion: 1.16.0
-    created: "2022-11-09T14:59:40.380532+08:00"
+    created: "2022-11-09T18:42:18.979215+08:00"
     description: A Helm chart for Kubernetes
     digest: 0009ad7a74ac92f75eb228cceacb950f7a3763bff39cd21b1fa06aad9eac14f2
     name: demo-chart
@@ -24,9 +24,9 @@ entries:
   jlgl-spring-chart:
   - apiVersion: v2
     appVersion: 1.16.0
-    created: "2022-11-09T14:59:40.383736+08:00"
+    created: "2022-11-09T18:42:18.982363+08:00"
     description: A Helm chart for Kubernetes
-    digest: da8dbec67e0d04245771d175405de60e9cff53ab97d1b53e3317688af06dfda6
+    digest: 2ead9f2faf70d6601e4dc2f6a14e215d0edd7f80adf81ccd9d5577a89e3597a5
     name: jlgl-spring-chart
     type: application
     urls:
@@ -35,7 +35,7 @@ entries:
   spring-microservice:
   - apiVersion: v2
     appVersion: 1.16.0
-    created: "2022-11-09T14:59:40.388846+08:00"
+    created: "2022-11-09T18:42:18.98712+08:00"
     description: A Helm chart for Kubernetes
     digest: 7728da7b74a120ca272cac961766fc6215c92ebf98101e5a1151779b1ac49212
     name: spring-microservice
@@ -43,4 +43,4 @@ entries:
     urls:
     - https://git1e.github.io/helm-chart/spring-microservice-0.1.0.tgz
     version: 0.1.0
-generated: "2022-11-09T14:59:40.379284+08:00"
+generated: "2022-11-09T18:42:18.977375+08:00"
