@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: {{ include "jlgl-spring-chart.fullname" . }}
+  name: {{ .Release.Name }}
   labels:
     {{- include "jlgl-spring-chart.labels" . | nindent 4 }}
 spec:
