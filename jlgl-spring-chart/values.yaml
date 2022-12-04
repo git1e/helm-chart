@@ -114,25 +114,12 @@ strategy:
   type: RollingUpdate 
 
 
-JAVA_OPTS: -XX:+UnlockExperimentalVMOptions -XX:+UseCGroupMemoryLimitForHeap
+ENV_JAVA_OPTS:
+  enable: true
+  name: JAVA_OPTS
+  value: -XX:+UnlockExperimentalVMOptions -XX:+UseCGroupMemoryLimitForHeap
       -XX:-UseContainerSupport -Xmn256M -XX:MaxMetaspaceSize=256M -XX:MetaspaceSize=256M
       -XX:+UseConcMarkSweepGC -XX:+UseCMSInitiatingOccupancyOnly -XX:CMSInitiatingOccupancyFraction=70
       -XX:+ExplicitGCInvokesConcurrentAndUnloadsClasses -XX:+CMSClassUnloadingEnabled
       -XX:+ParallelRefProcEnabled -XX:+CMSScavengeBeforeRemark -XX:+PrintGCDetails
-      -XX:+PrintGCDateStamps -Duser.timezone=Asia/Shanghai -Dfile.encoding=utf-8
-
-# topologySpreadConstraints
-# Pod 尽量均匀的打散调度到各个可用区的同时，在可用区内部各节点也尽量打散
-topologySpreadConstraints:
-- maxSkew: 1
-  whenUnsatisfiable: ScheduleAnyway
-  topologyKey: topology.kubernetes.io/zone
-  labelSelector:
-    matchLabels:
-      app.kubernetes.io/name: jlgl-spring-chart
-- maxSkew: 1
-  whenUnsatisfiable: ScheduleAnyway
-  topologyKey: kubernetes.io/hostname
-  labelSelector:
-    matchLabels:
-      app.kubernetes.io/name: jlgl-spring-chart
+      -XX:+PrintGCDateStamps -Duser.timezone=Asia/Shanghai -Dfile.encoding=utf-8 

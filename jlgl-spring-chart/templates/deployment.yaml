@@ -25,10 +25,21 @@ spec:
       labels:
         {{- include "jlgl-spring-chart.selectorLabels" . | nindent 8 }}
     spec:
-      {{- with .Values.topologySpreadConstraints}}
+      # topologySpreadConstraints
+      # Pod 尽量均匀的打散调度到各个可用区的同时，在可用区内部各节点也尽量打散
       topologySpreadConstraints:
-       {{- toYaml . | nindent 8 }}
-      {{- end }}
+      - maxSkew: 1
+        whenUnsatisfiable: ScheduleAnyway
+        topologyKey: topology.kubernetes.io/zone
+        labelSelector:
+          matchLabels:
+            app.kubernetes.io/name: {{ .Release.Name }}
+      - maxSkew: 1
+        whenUnsatisfiable: ScheduleAnyway
+        topologyKey: kubernetes.io/hostname
+        labelSelector:
+          matchLabels:
+            app.kubernetes.io/name: {{ .Release.Name }}
 
       {{- with .Values.imagePullSecrets }}
       imagePullSecrets:
@@ -77,8 +88,12 @@ spec:
               port: {{ .Values.readinessProbe.httpGet.port }}
               scheme: {{ .Values.readinessProbe.httpGet.scheme }}
           env:
-            - name: JAVA_OPTS
-              value: {{ .Values.JAVA_OPTS }}
+            # - name: JAVA_OPTS
+            #   value: {{ .Values.JAVA_OPTS }}
+            {{- if .Values.ENV_JAVA_OPTS.enable   }} 
+            - name: {{ .Values.ENV_JAVA_OPTS.name }}
+              value: {{  .Values.ENV_JAVA_OPTS.value }}
+            {{- end }}
             - name: POD_IP
               valueFrom:
                 fieldRef:
