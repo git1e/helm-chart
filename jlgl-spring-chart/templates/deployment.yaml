@@ -68,7 +68,7 @@ spec:
                 command:
                 - /bin/sh
                 - -c
-                - sh /data/bin/offline_nacos.sh
+                - sh /data/bin/offline-nacos.sh
           livenessProbe:
             failureThreshold: {{ .Values.livenessProbe.failureThreshold }}
             periodSeconds: {{ .Values.livenessProbe.periodSeconds }}
@@ -88,8 +88,6 @@ spec:
               port: {{ .Values.readinessProbe.httpGet.port }}
               scheme: {{ .Values.readinessProbe.httpGet.scheme }}
           env:
-            # - name: JAVA_OPTS
-            #   value: {{ .Values.JAVA_OPTS }}
             {{- if .Values.ENV_JAVA_OPTS.enable   }} 
             - name: {{ .Values.ENV_JAVA_OPTS.name }}
               value: {{  .Values.ENV_JAVA_OPTS.value }}
