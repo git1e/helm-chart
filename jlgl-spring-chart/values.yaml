@@ -64,10 +64,10 @@ ingress:
 resources:
    limits:
      cpu: 500m
-     memory: 512Mi
+     memory: 1024Mi
    requests:
      cpu: 500m
-     memory: 512Mi
+     memory: 1024Mi
 
 autoscaling:
   enabled: false
@@ -117,8 +117,9 @@ strategy:
 ENV_JAVA_OPTS:
   enable: true
   name: JAVA_OPTS
-  value: -XX:+UnlockExperimentalVMOptions -XX:+UseCGroupMemoryLimitForHeap
+  value: -XX:InitialRAMPercentage=50.0 -XX:MinRAMPercentage=50.0 -XX:MaxRAMPercentage=75.0
       -XX:-UseContainerSupport -Xmn256M -XX:MaxMetaspaceSize=256M -XX:MetaspaceSize=256M
+      -XX:+UnlockExperimentalVMOptions -XX:+UseCGroupMemoryLimitForHeap
       -XX:+UseConcMarkSweepGC -XX:+UseCMSInitiatingOccupancyOnly -XX:CMSInitiatingOccupancyFraction=70
       -XX:+ExplicitGCInvokesConcurrentAndUnloadsClasses -XX:+CMSClassUnloadingEnabled
       -XX:+ParallelRefProcEnabled -XX:+CMSScavengeBeforeRemark -XX:+PrintGCDetails
